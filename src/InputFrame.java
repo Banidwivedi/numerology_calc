@@ -371,7 +371,7 @@ public class InputFrame extends javax.swing.JFrame {
             } if (tfSecondName.getText().isEmpty()) {
                 tfSecondName.setText(defSecondName);
             } if (tfDateOfBirth.getText().isEmpty()) {
-                tfDateOfBirth.setText(defPlaceOfBirth);
+                tfDateOfBirth.setText(defDateOfBirth);
             }
         }
     }                                           

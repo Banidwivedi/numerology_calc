@@ -23,7 +23,7 @@ class Numerology {
     }
 
     public String getCareer() {
-        return career ;
+        return career;
     }
 
     public String getRulingPlanet() {
@@ -41,6 +41,7 @@ class Numerology {
         zodiacSign = zodiacSign(day, month);
         personality = personality(day);
     }
+
     public int destinyNumber(int day) {
         int rem, sum = 0;
         while (day > 0 || sum > 9) {
@@ -174,63 +175,40 @@ class Numerology {
             career = "Profession related to luxury items i.e. cosmetics, painting, musician, film industry, interior designer, fine arts etc. You may love limelight and have magnetic personality.";
         } else if (day == 7 || day == 17 || day == 25) {
             career = "Best career options for you is research, politics, philosophy, reformers, poet, writer, publishing business, photography. You are simple, straightforward and  a hardworking person. ";
-        } else if(day ==8||day ==16||day ==26){
+        } else if (day == 8 || day == 16 || day == 26) {
             career = "Sports is the best career option for you. You have a lot of courage so it would be good to go in defence. real estate business will also suit you.";
         }
         return career;
     }
-    public String rulingPlanet()
-    {
+
+    public String rulingPlanet() {
         String rulingPlanet = "";
-      if(zodiacSign.equals("aries"))
-      {
-       rulingPlanet = "Mars";
-      }
-      else if(zodiacSign.equals("Taurus"))
-      {
-          rulingPlanet = "Venus";
-      }
-      else if(zodiacSign.equals("Gemini"))
-      {
-          rulingPlanet = "Mercury";
-      }
-      else if(zodiacSign.equals("Cancer"))
-      {
-          rulingPlanet = "Moon";
-      }
-      else if(zodiacSign.equals("Leo"))
-      {
-          rulingPlanet = "Sun";
-      }
-      else if(zodiacSign.equals("Virgo"))
-      {
-          rulingPlanet = "Mercury";
-      }
-      else if(zodiacSign.equals("Libra"))
-      {
-          rulingPlanet = "Venus";
-      }
-      else if(zodiacSign.equals("Scorpio"))
-      {
-          rulingPlanet = "Mars";
-      }
-      else if(zodiacSign.equals("Sagittarius"))
-      {
-          rulingPlanet = "Jupiter";
-      }
-      else if(zodiacSign.equals("Capricorn"))
-      {
-          rulingPlanet = "Saturn";
-      }
-      else if(zodiacSign.equals("Aquarius"))
-      {
-          rulingPlanet = "Saturn";
-      }
-      else if(zodiacSign.equals("Pisces"))
-      {
-          rulingPlanet = "Jupiter";
-      }
-      return rulingPlanet;
+        if (zodiacSign.equals("aries")) {
+            rulingPlanet = "Mars";
+        } else if (zodiacSign.equals("Taurus")) {
+            rulingPlanet = "Venus";
+        } else if (zodiacSign.equals("Gemini")) {
+            rulingPlanet = "Mercury";
+        } else if (zodiacSign.equals("Cancer")) {
+            rulingPlanet = "Moon";
+        } else if (zodiacSign.equals("Leo")) {
+            rulingPlanet = "Sun";
+        } else if (zodiacSign.equals("Virgo")) {
+            rulingPlanet = "Mercury";
+        } else if (zodiacSign.equals("Libra")) {
+            rulingPlanet = "Venus";
+        } else if (zodiacSign.equals("Scorpio")) {
+            rulingPlanet = "Mars";
+        } else if (zodiacSign.equals("Sagittarius")) {
+            rulingPlanet = "Jupiter";
+        } else if (zodiacSign.equals("Capricorn")) {
+            rulingPlanet = "Saturn";
+        } else if (zodiacSign.equals("Aquarius")) {
+            rulingPlanet = "Saturn";
+        } else if (zodiacSign.equals("Pisces")) {
+            rulingPlanet = "Jupiter";
+        }
+        return rulingPlanet;
     }
 }
 

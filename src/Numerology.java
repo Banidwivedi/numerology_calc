@@ -31,18 +31,19 @@ class Numerology {
     }
 
     // bd -> birthdate
-    public Numerology(String firstName, String secondName, Birthday bd, String placeOfBirth) {
+    public Numerology(Birthday bd) {
         int day = bd.getDay();
         int month = bd.getMonth();
-        int year = bd.getYear();
 
         destinyNumber = destinyNumber(day);
         luckyNumber = luckyNumber();
         zodiacSign = zodiacSign(day, month);
         personality = personality(day);
+        career = career(day);
+        rulingPlanet = rulingPlanet(zodiacSign);
     }
 
-    public int destinyNumber(int day) {
+    private int destinyNumber(int day) {
         int rem, sum = 0;
         while (day > 0 || sum > 9) {
             if (day == 0) {
@@ -56,9 +57,9 @@ class Numerology {
         return sum;
     }
 
-    public int luckyNumber() {
+    private int luckyNumber() {
         int veryLuckyNumber = 7; // just because
-        final int MAX = 10, MIN = 0;
+        final int MAX = 10, MIN = 1;
         int random = (int) (Math.random() * (MAX - MIN)) * MIN;
 
         if (random % 3 == 0) {
@@ -68,7 +69,7 @@ class Numerology {
         }
     }
 
-    public String zodiacSign(int day, int month) {
+    private String zodiacSign(int day, int month) {
         String zodiacSign = "";
 
         if (month == 12) {
@@ -100,7 +101,7 @@ class Numerology {
             if (day < 21)
                 zodiacSign = "Taurus";
             else
-                zodiacSign = "Gmini";
+                zodiacSign = "Gemini";
         } else if (month == 6) {
             if (day < 21)
                 zodiacSign = "Gemini";
@@ -135,23 +136,23 @@ class Numerology {
         return zodiacSign;
     }
 
-    public String personality(int day) {
+    private String personality(int day) {
         String personality = "";
 
         if (day == 1 || day == 10 || day == 19 || day == 28) {
-            personality = "Dominating nature , reserved in both your personal and professional life,your vision is clear,you are good in leadership.";
+            personality = "Dominating nature, reserved in both your personal and professional life, your vision is clear,you are good in leadership.";
         } else if (day == 2 || day == 11 || day == 20 || day == 29) {
-            personality = "You are very emotional, you trust others sometimes quite easily . You may be a kind individual.You value sentimental facts";
+            personality = "You are very emotional, you trust others sometimes quite easily. You may be a kind individual.You value sentimental facts";
         } else if (day == 3 || day == 12 || day == 21 || day == 30) {
-            personality = "You are a very spiritual person and a good advisor. You are good at making money by investing in stock market and funds. you are blessed with great communication skills";
+            personality = "You are a very spiritual person and a good advisor. You are good at making money by investing in stock market and funds. You are blessed with great communication skills";
         } else if (day == 4 || day == 13 || day == 22 || day == 31) {
-            personality = "Good for positions in fields of science and technology.Your personality traits reveal that you are highly intellectual. You are sharp , quick witted and clever. You are very adventurous. You like to be energetic and live life at a fast pace. You are good at calculations. You implement what you plan and achieve your goals very aggressively.";
+            personality = "Good for positions in fields of science and technology. Your personality traits reveal that you are highly intellectual. You are sharp, quick witted and clever. You are very adventurous. You like to be energetic and live life at a fast pace. You are good at calculations. You implement what you plan and achieve your goals very aggressively.";
         } else if (day == 5 || day == 14 || day == 23) {
             personality = "You are very joyful in nature. You like to live life to the fullest. You love pampering and connecting with people. You are socially very active.You never wish to live an employee like life. You are the boss of your own Life.";
         } else if (day == 6 || day == 15 || day == 24) {
             personality = "You are obsessed with looks, lifestyle and money. You like thins lavish and luxurious . You are very good at connecting with people. You like to travel and usually are found in career that take you yo different places. You have a strong bonding with life partner";
         } else if (day == 7 || day == 16 || day == 25) {
-            personality = "YOu are secretive , spiritual and personally closed off. You enjoy working in fields of research, data science etc.You usually reach at top management postions due to your calm, scholar mind and far sighted appraoch. ";
+            personality = "YOu are secretive , spiritual and personally closed off. You enjoy working in fields of research, data science etc.You usually reach at top management positions due to your calm, scholar mind and far sighted approach. ";
         } else if (day == 8 || day == 17 || day == 26) {
             personality = "You are a good decision maker. You are a believer of hard work .you are extremely practical and you value your commitments.";
         }
@@ -181,34 +182,17 @@ class Numerology {
         return career;
     }
 
-    public String rulingPlanet() {
-        String rulingPlanet = "";
-        if (zodiacSign.equals("aries")) {
-            rulingPlanet = "Mars";
-        } else if (zodiacSign.equals("Taurus")) {
-            rulingPlanet = "Venus";
-        } else if (zodiacSign.equals("Gemini")) {
-            rulingPlanet = "Mercury";
-        } else if (zodiacSign.equals("Cancer")) {
-            rulingPlanet = "Moon";
-        } else if (zodiacSign.equals("Leo")) {
-            rulingPlanet = "Sun";
-        } else if (zodiacSign.equals("Virgo")) {
-            rulingPlanet = "Mercury";
-        } else if (zodiacSign.equals("Libra")) {
-            rulingPlanet = "Venus";
-        } else if (zodiacSign.equals("Scorpio")) {
-            rulingPlanet = "Mars";
-        } else if (zodiacSign.equals("Sagittarius")) {
-            rulingPlanet = "Jupiter";
-        } else if (zodiacSign.equals("Capricorn")) {
-            rulingPlanet = "Saturn";
-        } else if (zodiacSign.equals("Aquarius")) {
-            rulingPlanet = "Saturn";
-        } else if (zodiacSign.equals("Pisces")) {
-            rulingPlanet = "Jupiter";
-        }
-        return rulingPlanet;
+    private String rulingPlanet(String zodiacSign) {
+        return switch (zodiacSign) {
+            case "Aries", "Scorpio" -> "Mars";
+            case "Taurus", "Libra" -> "Venus";
+            case "Gemini", "Virgo" -> "Mercury";
+            case "Cancer" -> "Moon";
+            case "Leo" -> "Sun";
+            case "Sagittarius", "Pisces" -> "Jupiter";
+            case "Capricorn", "Aquarius" -> "Saturn";
+            default -> "";
+        };
     }
 }
 

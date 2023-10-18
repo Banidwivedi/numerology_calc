@@ -293,6 +293,15 @@ public class InputFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnClearActionPerformed
 
+    private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {
+        if (evt.getSource() == btnOk) {
+            String birthdate = tfDateOfBirth.getText();
+            Birthday bd = new Birthday(birthdate);
+            setVisible(false);
+            //new OutputFrame(new Numerology(bd));
+        }
+    }
+
     private void tfPlaceOfBirthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfPlaceOfBirthActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfPlaceOfBirthActionPerformed
@@ -303,11 +312,11 @@ public class InputFrame extends javax.swing.JFrame {
             if(tfPlaceOfBirth.getText().equals(defPlaceOfBirth)){
                 tfPlaceOfBirth.setText("");
             }
-            if (tfFirstName.getText().equals("")) {
+            if (tfFirstName.getText().isEmpty()) {
                 tfFirstName.setText(defFirstName);
-            } if (tfSecondName.getText().equals("")) {
+            } if (tfSecondName.getText().isEmpty()) {
                 tfSecondName.setText(defSecondName);
-            } if (tfDateOfBirth.getText().equals("")) {
+            } if (tfDateOfBirth.getText().isEmpty()) {
                 tfDateOfBirth.setText(defDateOfBirth);
             }
         }
@@ -319,11 +328,11 @@ public class InputFrame extends javax.swing.JFrame {
             if(tfDateOfBirth.getText().equals(defDateOfBirth)){
                 tfDateOfBirth.setText("");
             }
-            if (tfFirstName.getText().equals("")) {
+            if (tfFirstName.getText().isEmpty()) {
                 tfFirstName.setText(defFirstName);
-            } if (tfSecondName.getText().equals("")) {
+            } if (tfSecondName.getText().isEmpty()) {
                 tfSecondName.setText(defSecondName);
-            } if (tfPlaceOfBirth.getText().equals("")) {
+            } if (tfPlaceOfBirth.getText().isEmpty()) {
                 tfPlaceOfBirth.setText(defPlaceOfBirth);
             }
         }
@@ -334,11 +343,11 @@ public class InputFrame extends javax.swing.JFrame {
         if (evt.getSource() == tfFirstName) {
             if(tfFirstName.getText().equals(defFirstName)){
                 tfFirstName.setText("");
-            } if (tfSecondName.getText().equals("")) {
+            } if (tfSecondName.getText().isEmpty()) {
                 tfSecondName.setText(defSecondName);
-            } if (tfDateOfBirth.getText().equals("")) {
+            } if (tfDateOfBirth.getText().isEmpty()) {
                 tfDateOfBirth.setText(defDateOfBirth);
-            } if (tfPlaceOfBirth.getText().equals("")) {
+            } if (tfPlaceOfBirth.getText().isEmpty()) {
                 tfPlaceOfBirth.setText(defPlaceOfBirth);
             }
         }
@@ -354,11 +363,11 @@ public class InputFrame extends javax.swing.JFrame {
             if(tfSecondName.getText().equals(defSecondName)){
                 tfSecondName.setText("");
             }
-            if (tfFirstName.getText().equals("")) {
+            if (tfFirstName.getText().isEmpty()) {
                 tfFirstName.setText(defFirstName);
-            } if (tfDateOfBirth.getText().equals("")) {
+            } if (tfDateOfBirth.getText().isEmpty()) {
                 tfDateOfBirth.setText(defDateOfBirth);
-            } if (tfPlaceOfBirth.getText().equals("")) {
+            } if (tfPlaceOfBirth.getText().isEmpty()) {
                 tfPlaceOfBirth.setText(defPlaceOfBirth);
             }
         }

@@ -22,12 +22,12 @@ public class InputFrame extends javax.swing.JFrame {
     private final String defSecondName = "Last Name";
     private final String defDateOfBirth = "DD/MM/YYYY";
     private final String defPlaceOfBirth = "Place of Birth";
-    private Font inputFieldFont = new Font("Bitstream Charter", Font.PLAIN, 18);
-    private Color textColor = new Color(0x100c22);
-    private Color backgroundWhite = new Color(0xebe9f7);
-    private int radius = 30;
-    private int strokeSize = 4;
-    private int borderOffset = 5;
+    private final Font inputFieldFont = new Font("Bitstream Charter", Font.PLAIN, 18);
+    private final Color textColor = new Color(0x100c22);
+    private final Color backgroundWhite = new Color(0xebe9f7);
+    private final int radius = 30;
+    private final int strokeSize = 4;
+    private final int borderOffset = 5;
     
 
     /**

@@ -41,7 +41,7 @@ class Numerology {
     }
 
     // bd -> birthdate
-    public Numerology(String firstName, String secondName, Birthday bd, String placeOfBirth) {
+    public Numerology(Birthday bd) {
         int day = bd.getDay();
         int month = bd.getMonth();
         int year = bd.getYear();
@@ -49,7 +49,10 @@ class Numerology {
         destinyNumber = destinyNumber(day);
         luckyNumber = luckyNumber();
         zodiacSign = zodiacSign(day, month);
+        rulingPlanet = rulingPlanet(zodiacSign);
+        career = career(day);
         personality = personality(day);
+        future = future(zodiacSign);
     }
 
     private int destinyNumber(int day) {
@@ -67,31 +70,24 @@ class Numerology {
     }
 
     private String destinyNumberDescription() {
-        String description = "";
-        if (destinyNumber == 1)
-            description = "Natural , inbuilt leadership";
-        if (destinyNumber == 2)
-            description = "Diplomatic capabilities, peacemakers";
-        if (destinyNumber == 3)
-            description = "Optimistic, confident";
-        if (destinyNumber == 4)
-            description = "Responsible, practical";
-        if (destinyNumber == 5)
-            description = "Adventurous , adaptable";
-        if (destinyNumber == 6)
-            description = "Humanitarian, homely";
-        if (destinyNumber == 7)
-            description = "Teaching capabilities, thinker";
-        if (destinyNumber == 8)
-            description = "Ambitious, self controlled";
-        if (destinyNumber == 9)
-            description = "Compassionate, forgiving";
+        String description = switch (destinyNumber) {
+            case 1 -> "Natural , inbuilt leadership";
+            case 2 -> "Diplomatic capabilities, peacemakers";
+            case 3 -> "Optimistic, confident";
+            case 4 -> "Responsible, practical";
+            case 5 -> "Adventurous , adaptable";
+            case 6 -> "Humanitarian, homely";
+            case 7 -> "Teaching capabilities, thinker";
+            case 8 -> "Ambitious, self controlled";
+            case 9 -> "Compassionate, forgiving";
+            default -> "";
+        };
         return description;
     }
 
     private int luckyNumber() {
         int veryLuckyNumber = 7; // just because
-        final int MAX = 10, MIN = 0;
+        final int MAX = 10, MIN = 1;
         int random = (int) (Math.random() * (MAX - MIN)) * MIN;
 
         if (random % 3 == 0) {
@@ -104,66 +100,81 @@ class Numerology {
     private String zodiacSign(int day, int month) {
         String zodiacSign = "";
 
-        if (month == 12) {
-            if (day < 22)
-                zodiacSign = "Sagittarius";
-            else
-                zodiacSign = "Capricorn";
-        } else if (month == 1) {
-            if (day < 20)
-                zodiacSign = "Capricorn";
-            else
-                zodiacSign = "Aquarius";
-        } else if (month == 2) {
-            if (day < 19)
-                zodiacSign = "Aquarius";
-            else
-                zodiacSign = "Pisces";
-        } else if (month == 3) {
-            if (day < 21)
-                zodiacSign = "Pisces";
-            else
-                zodiacSign = "Aries";
-        } else if (month == 4) {
-            if (day < 20)
-                zodiacSign = "Aries";
-            else
-                zodiacSign = "Taurus";
-        } else if (month == 5) {
-            if (day < 21)
-                zodiacSign = "Taurus";
-            else
-                zodiacSign = "Gemini";
-        } else if (month == 6) {
-            if (day < 21)
-                zodiacSign = "Gemini";
-            else
-                zodiacSign = "Cancer";
-        } else if (month == 7) {
-            if (day < 23)
-                zodiacSign = "Cancer";
-            else
-                zodiacSign = "Leo";
-        } else if (month == 8) {
-            if (day < 23)
-                zodiacSign = "Leo";
-            else
-                zodiacSign = "Virgo";
-        } else if (month == 9) {
-            if (day < 23)
-                zodiacSign = "Virgo";
-            else
-                zodiacSign = "Libra";
-        } else if (month == 10) {
-            if (day < 23)
-                zodiacSign = "Libra";
-            else
-                zodiacSign = "Scorpio";
-        } else if (month == 11) {
-            if (day < 22)
-                zodiacSign = "Scorpio";
-            else
-                zodiacSign = "Sagittarius";
+        switch (month) {
+            case 12 -> {
+                if (day < 22)
+                    zodiacSign = "sagittarius";
+                else
+                    zodiacSign = "capricorn";
+            }
+            case 1 -> {
+                if (day < 20)
+                    zodiacSign = "capricorn";
+                else
+                    zodiacSign = "aquarius";
+            }
+            case 2 -> {
+                if (day < 19)
+                    zodiacSign = "aquarius";
+                else
+                    zodiacSign = "pisces";
+            }
+            case 3 -> {
+                if (day < 21)
+                    zodiacSign = "pisces";
+                else
+                    zodiacSign = "aries";
+            }
+            case 4 -> {
+                if (day < 20)
+                    zodiacSign = "aries";
+                else
+                    zodiacSign = "taurus";
+            }
+            case 5 -> {
+                if (day < 21)
+                    zodiacSign = "taurus";
+                else
+                    zodiacSign = "gemini";
+            }
+            case 6 -> {
+                if (day < 21)
+                    zodiacSign = "gemini";
+                else
+                    zodiacSign = "cancer";
+            }
+            case 7 -> {
+                if (day < 23)
+                    zodiacSign = "cancer";
+                else
+                    zodiacSign = "leo";
+            }
+            case 8 -> {
+                if (day < 23)
+                    zodiacSign = "leo";
+                else
+                    zodiacSign = "virgo";
+            }
+            case 9 -> {
+                if (day < 23)
+                    zodiacSign = "virgo";
+                else
+                    zodiacSign = "libra";
+            }
+            case 10 -> {
+                if (day < 23)
+                    zodiacSign = "libra";
+                else
+                    zodiacSign = "scorpio";
+            }
+            case 11 -> {
+                if (day < 22)
+                    zodiacSign = "scorpio";
+                else
+                    zodiacSign = "sagittarius";
+            }
+            default -> {
+            }
         }
         return zodiacSign;
     }
@@ -176,17 +187,17 @@ class Numerology {
         } else if (day == 2 || day == 11 || day == 20 || day == 29) {
             personality = "You are very emotional, you trust others sometimes quite easily . You may be a kind individual.You value sentimental facts";
         } else if (day == 3 || day == 12 || day == 21 || day == 30) {
-            personality = "You are a very spiritual person and a good advisor. You are good at making money by investing in stock market and funds. you are blessed with great communication skills";
+            personality = "You are a very spiritual person and a good advisor.You are blessed with great communication skills";
         } else if (day == 4 || day == 13 || day == 22 || day == 31) {
-            personality = "Good for positions in fields of science and technology.Your personality traits reveal that you are highly intellectual. You are sharp , quick witted and clever. You are very adventurous. You like to be energetic and live life at a fast pace. You are good at calculations. You implement what you plan and achieve your goals very aggressively.";
+            personality = "Good for positions in fields of science and technology.You are sharp highly intellectual, quick witted and clever. You are very adventurous. You live life at a fast pace. You implement what you plan and achieve your goals very aggressively.";
         } else if (day == 5 || day == 14 || day == 23) {
-            personality = "You are very joyful in nature. You like to live life to the fullest. You love pampering and connecting with people. You are socially very active.You never wish to live an employee like life. You are the boss of your own Life.";
+            personality = "You are very joyful in nature. You like to live life to the fullest. You love pampering and connecting with people. You are socially very active. You never wish to live an employee like life. You are the boss of your own Life.";
         } else if (day == 6 || day == 15 || day == 24) {
-            personality = "You are obsessed with looks, lifestyle and money. You like lavish and luxurious things . You are very good at connecting with people. You like to travel and usually are found in career that take you to different places. You have a strong bonding with life partner";
+            personality = "You are obsessed with looks, lifestyle and money. You like lavish and luxurious things. You are very good at connecting with people and like to travel and usually are found in career that take you to different places.";
         } else if (day == 7 || day == 16 || day == 25) {
-            personality = "You are secretive , spiritual and personally closed off. You enjoy working in fields of research, data science etc.You usually reach at top management positions due to your calm, scholar mind and far sighted approach. ";
+            personality = "You are secretive, spiritual and personally closed off. You enjoy research.You usually reach at top management positions due to your calm, scholar mind and far sighted approach.";
         } else if (day == 8 || day == 17 || day == 26) {
-            personality = "You are a good decision maker. You are a believer of hard work .you are extremely practical and you value your commitments.";
+            personality = "You are a good decision maker and a believer of hard work. You are extremely practical and you value your commitments.";
         }
         return personality;
     }
@@ -207,38 +218,38 @@ class Numerology {
         } else if (day == 6 || day == 15 || day == 24) {
             career = "Professions related to luxury items i.e. cosmetics, painting, music, film industry, interior designing, fine arts etc are quite good for you. You love limelight and have magnetic personality.";
         } else if (day == 7 || day == 17 || day == 25) {
-            career = "Best career options for you are research, politics, philosophy, poetry, writing, publishing business, photography. You are simple, straightforward and  a hardworking person. ";
+            career = "Best career options for you are research, politics, philosophy, poetry, writing, publishing business, photography. You are simple, straightforward and a hardworking person. ";
         } else if (day == 8 || day == 16 || day == 26) {
             career = "Sports is the best career option for you. You have a lot of courage so it would be good to go in defence. Real estate business will also suit you.";
         }
         return career;
     }
 
-    private String rulingPlanet() {
+    private String rulingPlanet(String zodiacSign) {
         String rulingPlanet = "";
         if (zodiacSign.equals("aries")) {
             rulingPlanet = "Mars";
-        } else if (zodiacSign.equals("Taurus")) {
+        } else if (zodiacSign.equals("taurus")) {
             rulingPlanet = "Venus";
-        } else if (zodiacSign.equals("Gemini")) {
+        } else if (zodiacSign.equals("gemini")) {
             rulingPlanet = "Mercury";
-        } else if (zodiacSign.equals("Cancer")) {
+        } else if (zodiacSign.equals("cancer")) {
             rulingPlanet = "Moon";
-        } else if (zodiacSign.equals("Leo")) {
+        } else if (zodiacSign.equals("leo")) {
             rulingPlanet = "Sun";
-        } else if (zodiacSign.equals("Virgo")) {
+        } else if (zodiacSign.equals("virgo")) {
             rulingPlanet = "Mercury";
-        } else if (zodiacSign.equals("Libra")) {
+        } else if (zodiacSign.equals("libra")) {
             rulingPlanet = "Venus";
-        } else if (zodiacSign.equals("Scorpio")) {
+        } else if (zodiacSign.equals("scorpio")) {
             rulingPlanet = "Mars";
-        } else if (zodiacSign.equals("Sagittarius")) {
+        } else if (zodiacSign.equals("sagittarius")) {
             rulingPlanet = "Jupiter";
-        } else if (zodiacSign.equals("Capricorn")) {
+        } else if (zodiacSign.equals("capricorn")) {
             rulingPlanet = "Saturn";
-        } else if (zodiacSign.equals("Aquarius")) {
+        } else if (zodiacSign.equals("aquarius")) {
             rulingPlanet = "Saturn";
-        } else if (zodiacSign.equals("Pisces")) {
+        } else if (zodiacSign.equals("pisces")) {
             rulingPlanet = "Jupiter";
         }
         return rulingPlanet;
@@ -247,7 +258,7 @@ class Numerology {
     /**
      * @return
      */
-    private String future() {
+    private String future(String zodiacSign) {
         String future;
         future = switch (zodiacSign) {
             case "Aries" ->
@@ -273,7 +284,7 @@ class Numerology {
             case "Aquarius" ->
                     "good income and any old transaction will also get relief from ending. Your financial condition will be better than before due to profit in business. If money is needed to invest in a business then that too will be fulfilled";
             case "Pisces" ->
-                    "Financial conditions will improve . You  may go on a religious trip. You are going to support your younger siblings.";
+                    "Financial conditions will improve. You may go on a religious trip. You are going to support your younger siblings.";
             default -> "";
         };
         return future;

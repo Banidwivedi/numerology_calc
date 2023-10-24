@@ -12,17 +12,17 @@ import javax.swing.JPanel;
  * @author nigga
  */
 public class OutputFrame extends javax.swing.JFrame {
-    private Font titleFont = new Font("Bitstream Charter", Font.BOLD, 30);
-    private Font textFont = new Font("Bitstream Charter", Font.PLAIN, 15);
-    private Color backgroundWhite = new Color(0xebe9f7);
-    private Color textColor = new Color(0x100c22);
-    private int radius = 30;
-    private int strokeSize = 4;
-    private int borderOffset = 5;
-    private ImageIcon zodiac;
-    private String career;
-    private String personality;
-    private int luckyNumber;
+    private final Font titleFont = new Font("Bitstream Charter", Font.BOLD, 30);
+    private final Font textFont = new Font("Bitstream Charter", Font.PLAIN, 15);
+    private final Color backgroundWhite = new Color(0xebe9f7);
+    private final Color textColor = new Color(0x100c22);
+    private final int radius = 30;
+    private final int strokeSize = 4;
+    private final int borderOffset = 5;
+    private final ImageIcon zodiac;
+    private final String career;
+    private final String personality;
+    private final int luckyNumber;
     
     /**
      * Creates new form OutputFrame

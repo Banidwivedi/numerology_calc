@@ -1,6 +1,13 @@
 
+import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.LayoutManager;
+import java.awt.RenderingHints;
+import javax.swing.JPanel;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -11,16 +18,23 @@ import java.awt.Font;
  * @author nigga
  */
 public class InputFrame extends javax.swing.JFrame {
-    final String defFirstName = "First Name";
-    final String defSecondName = "Last Name";
-    final String defDateOfBirth = "DD/MM/YYYY";
-    final String defPlaceOfBirth = "Place of Birth";
-    Font inputFieldFont = new Font("Bitstream Charter", Font.PLAIN, 18);
+    private final String defFirstName = "First Name";
+    private final String defSecondName = "Last Name";
+    private final String defDateOfBirth = "DD/MM/YYYY";
+    private final String defPlaceOfBirth = "Place of Birth";
+    private Font inputFieldFont = new Font("Bitstream Charter", Font.PLAIN, 18);
+    private Color textColor = new Color(0x100c22);
+    private Color backgroundWhite = new Color(0xebe9f7);
+    private int radius = 30;
+    private int strokeSize = 4;
+    private int borderOffset = 5;
+    
 
     /**
      * Creates new form NewJFrame
      */
     public InputFrame() {
+        setVisible(true);
         initComponents();
     }
 
@@ -34,7 +48,7 @@ public class InputFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         rbGroupGender = new javax.swing.ButtonGroup();
-        inputFields = new javax.swing.JPanel();
+        inputFields = new RoundedPanel(radius, backgroundWhite, strokeSize, borderOffset, textColor);
         tfSecondName = new javax.swing.JTextField();
         tfFirstName = new javax.swing.JTextField();
         tfDateOfBirth = new javax.swing.JTextField();
@@ -48,7 +62,7 @@ public class InputFrame extends javax.swing.JFrame {
         btnClear = new javax.swing.JButton();
         rbMale = new javax.swing.JRadioButton();
         jRadioButton1 = new javax.swing.JRadioButton();
-        jPanel1 = new javax.swing.JPanel();
+        background = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -62,24 +76,24 @@ public class InputFrame extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(720, 480));
         getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
 
-        inputFields.setBackground(new Color(0xebe9f7));
-        inputFields.setBorder(javax.swing.BorderFactory.createLineBorder(new Color(204, 204, 204)));
+        inputFields.setBackground(backgroundWhite);
         inputFields.setForeground(new Color(0xe9d6fa));
-        inputFields.setMaximumSize(new java.awt.Dimension(350, 480));
-        inputFields.setMinimumSize(new java.awt.Dimension(350, 480));
-        inputFields.setPreferredSize(new java.awt.Dimension(350, 480));
+        inputFields.setMaximumSize(new java.awt.Dimension(350, 440));
+        inputFields.setMinimumSize(new java.awt.Dimension(0, 0));
+        inputFields.setOpaque(false);
+        inputFields.setPreferredSize(new java.awt.Dimension(350, 400));
         inputFields.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 inputFieldsMouseClicked(evt);
             }
         });
 
-        tfSecondName.setBackground(new Color(0xebe9f7));
+        tfSecondName.setBackground(backgroundWhite);
         tfSecondName.setFont(inputFieldFont);
         tfSecondName.setForeground(new Color(0x100c22));
         tfSecondName.setText("Last Name");
         tfSecondName.setBorder(null);
-        tfSecondName.setCaretColor(new Color(204, 204, 204));
+        tfSecondName.setCaretColor(new java.awt.Color(204, 204, 204));
         tfSecondName.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tfSecondNameMouseClicked(evt);
@@ -91,12 +105,12 @@ public class InputFrame extends javax.swing.JFrame {
             }
         });
 
-        tfFirstName.setBackground(new Color(0xebe9f7));
+        tfFirstName.setBackground(backgroundWhite);
         tfFirstName.setFont(inputFieldFont);
         tfFirstName.setForeground(new Color(0x100c22));
         tfFirstName.setText("First Name");
         tfFirstName.setBorder(null);
-        tfFirstName.setCaretColor(new Color(204, 204, 204));
+        tfFirstName.setCaretColor(new java.awt.Color(204, 204, 204));
         tfFirstName.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         tfFirstName.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -104,24 +118,24 @@ public class InputFrame extends javax.swing.JFrame {
             }
         });
 
-        tfDateOfBirth.setBackground(new Color(0xebe9f7));
+        tfDateOfBirth.setBackground(backgroundWhite);
         tfDateOfBirth.setFont(inputFieldFont);
         tfDateOfBirth.setForeground(new Color(0x100c22));
         tfDateOfBirth.setText("DD/MM/YYYY");
         tfDateOfBirth.setBorder(null);
-        tfDateOfBirth.setCaretColor(new Color(204, 204, 204));
+        tfDateOfBirth.setCaretColor(new java.awt.Color(204, 204, 204));
         tfDateOfBirth.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tfDateOfBirthMouseClicked(evt);
             }
         });
 
-        tfPlaceOfBirth.setBackground(new Color(0xebe9f7));
+        tfPlaceOfBirth.setBackground(backgroundWhite);
         tfPlaceOfBirth.setFont(inputFieldFont);
         tfPlaceOfBirth.setForeground(new Color(0x100c22));
         tfPlaceOfBirth.setText("Place of Birth");
         tfPlaceOfBirth.setBorder(null);
-        tfPlaceOfBirth.setCaretColor(new Color(204, 204, 204));
+        tfPlaceOfBirth.setCaretColor(new java.awt.Color(204, 204, 204));
         tfPlaceOfBirth.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tfPlaceOfBirthMouseClicked(evt);
@@ -133,20 +147,20 @@ public class InputFrame extends javax.swing.JFrame {
             }
         });
 
-        jSeparator1.setBackground(new Color(0xebe9f7));
-        jSeparator1.setForeground(new Color(204, 204, 204));
+        jSeparator1.setBackground(backgroundWhite);
+        jSeparator1.setForeground(textColor);
 
-        jSeparator2.setBackground(new Color(0xebe9f7));
-        jSeparator2.setForeground(new Color(204, 204, 204));
+        jSeparator2.setBackground(backgroundWhite);
+        jSeparator2.setForeground(textColor);
 
-        jSeparator3.setBackground(new Color(0xebe9f7));
-        jSeparator3.setForeground(new Color(204, 204, 204));
+        jSeparator3.setBackground(backgroundWhite);
+        jSeparator3.setForeground(textColor);
 
-        jSeparator4.setBackground(new Color(0xebe9f7));
-        jSeparator4.setForeground(new Color(204, 204, 204));
+        jSeparator4.setBackground(backgroundWhite);
+        jSeparator4.setForeground(textColor);
 
-        jLabel2.setBackground(new Color(0xebe9f7));
-        jLabel2.setFont(new Font("Abyssinica SIL", 0, 24)); // NOI18N
+        jLabel2.setBackground(backgroundWhite);
+        jLabel2.setFont(new java.awt.Font("Abyssinica SIL", 0, 24)); // NOI18N
         jLabel2.setForeground(new Color(0x100c22));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/planet.png"))); // NOI18N
@@ -160,6 +174,11 @@ public class InputFrame extends javax.swing.JFrame {
         btnOk.setBorder(new javax.swing.border.LineBorder(new Color(0x726db6), 2, true));
         btnOk.setContentAreaFilled(false);
         btnOk.setOpaque(true);
+        btnOk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOkActionPerformed(evt);
+            }
+        });
 
         btnClear.setBackground(new Color(0x726db6));
         btnClear.setFont(inputFieldFont);
@@ -174,14 +193,14 @@ public class InputFrame extends javax.swing.JFrame {
             }
         });
 
-        rbMale.setBackground(new Color(0xebe9f7));
+        rbMale.setBackground(backgroundWhite);
         rbGroupGender.add(rbMale);
         rbMale.setFont(inputFieldFont);
         rbMale.setForeground(new Color(0x100c22));
         rbMale.setText("Male");
         rbMale.setContentAreaFilled(false);
 
-        jRadioButton1.setBackground(new Color(0xebe9f7));
+        jRadioButton1.setBackground(backgroundWhite);
         rbGroupGender.add(jRadioButton1);
         jRadioButton1.setFont(inputFieldFont);
         jRadioButton1.setForeground(new Color(0x100c22));
@@ -219,14 +238,14 @@ public class InputFrame extends javax.swing.JFrame {
                     .addGroup(inputFieldsLayout.createSequentialGroup()
                         .addGap(38, 38, 38)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         inputFieldsLayout.setVerticalGroup(
             inputFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(inputFieldsLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(26, 26, 26)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55)
+                .addGap(30, 30, 30)
                 .addComponent(tfFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -250,30 +269,30 @@ public class InputFrame extends javax.swing.JFrame {
                 .addGroup(inputFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnClear)
                     .addComponent(btnOk))
-                .addGap(124, 124, 124))
+                .addGap(80, 80, 80))
         );
 
         getContentPane().add(inputFields);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/constellation.jpg"))); // NOI18N
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout backgroundLayout = new javax.swing.GroupLayout(background);
+        background.setLayout(backgroundLayout);
+        backgroundLayout.setHorizontalGroup(
+            backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(backgroundLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel1))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        backgroundLayout.setVerticalGroup(
+            backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundLayout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(0, 0, 0))
         );
 
-        getContentPane().add(jPanel1);
+        getContentPane().add(background);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -293,15 +312,6 @@ public class InputFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnClearActionPerformed
 
-    private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {
-        if (evt.getSource() == btnOk) {
-            String birthdate = tfDateOfBirth.getText();
-            Birthday bd = new Birthday(birthdate);
-            setVisible(false);
-            //new OutputFrame(new Numerology(bd));
-        }
-    }
-
     private void tfPlaceOfBirthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfPlaceOfBirthActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfPlaceOfBirthActionPerformed
@@ -312,11 +322,11 @@ public class InputFrame extends javax.swing.JFrame {
             if(tfPlaceOfBirth.getText().equals(defPlaceOfBirth)){
                 tfPlaceOfBirth.setText("");
             }
-            if (tfFirstName.getText().isEmpty()) {
+            if (tfFirstName.getText().equals("")) {
                 tfFirstName.setText(defFirstName);
-            } if (tfSecondName.getText().isEmpty()) {
+            } if (tfSecondName.getText().equals("")) {
                 tfSecondName.setText(defSecondName);
-            } if (tfDateOfBirth.getText().isEmpty()) {
+            } if (tfDateOfBirth.getText().equals("")) {
                 tfDateOfBirth.setText(defDateOfBirth);
             }
         }
@@ -328,11 +338,11 @@ public class InputFrame extends javax.swing.JFrame {
             if(tfDateOfBirth.getText().equals(defDateOfBirth)){
                 tfDateOfBirth.setText("");
             }
-            if (tfFirstName.getText().isEmpty()) {
+            if (tfFirstName.getText().equals("")) {
                 tfFirstName.setText(defFirstName);
-            } if (tfSecondName.getText().isEmpty()) {
+            } if (tfSecondName.getText().equals("")) {
                 tfSecondName.setText(defSecondName);
-            } if (tfPlaceOfBirth.getText().isEmpty()) {
+            } if (tfPlaceOfBirth.getText().equals("")) {
                 tfPlaceOfBirth.setText(defPlaceOfBirth);
             }
         }
@@ -343,11 +353,11 @@ public class InputFrame extends javax.swing.JFrame {
         if (evt.getSource() == tfFirstName) {
             if(tfFirstName.getText().equals(defFirstName)){
                 tfFirstName.setText("");
-            } if (tfSecondName.getText().isEmpty()) {
+            } if (tfSecondName.getText().equals("")) {
                 tfSecondName.setText(defSecondName);
-            } if (tfDateOfBirth.getText().isEmpty()) {
+            } if (tfDateOfBirth.getText().equals("")) {
                 tfDateOfBirth.setText(defDateOfBirth);
-            } if (tfPlaceOfBirth.getText().isEmpty()) {
+            } if (tfPlaceOfBirth.getText().equals("")) {
                 tfPlaceOfBirth.setText(defPlaceOfBirth);
             }
         }
@@ -363,15 +373,25 @@ public class InputFrame extends javax.swing.JFrame {
             if(tfSecondName.getText().equals(defSecondName)){
                 tfSecondName.setText("");
             }
-            if (tfFirstName.getText().isEmpty()) {
+            if (tfFirstName.getText().equals("")) {
                 tfFirstName.setText(defFirstName);
-            } if (tfDateOfBirth.getText().isEmpty()) {
+            } if (tfDateOfBirth.getText().equals("")) {
                 tfDateOfBirth.setText(defDateOfBirth);
-            } if (tfPlaceOfBirth.getText().isEmpty()) {
+            } if (tfPlaceOfBirth.getText().equals("")) {
                 tfPlaceOfBirth.setText(defPlaceOfBirth);
             }
         }
     }//GEN-LAST:event_tfSecondNameMouseClicked
+
+    private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
+        if(evt.getSource() == btnOk) {
+            String dateOfBirth = tfDateOfBirth.getText();
+            Birthday bd = new Birthday(dateOfBirth);
+            Numerology numerology = new Numerology(bd);
+            dispose();
+            new OutputFrame(numerology);
+        }
+    }//GEN-LAST:event_btnOkActionPerformed
 
     /**
      * @param args the command line arguments
@@ -410,12 +430,12 @@ public class InputFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel background;
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnOk;
     private javax.swing.JPanel inputFields;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
@@ -428,4 +448,96 @@ public class InputFrame extends javax.swing.JFrame {
     private javax.swing.JTextField tfPlaceOfBirth;
     private javax.swing.JTextField tfSecondName;
     // End of variables declaration//GEN-END:variables
+    class RoundedPanel extends JPanel {
+        private Color backgroundColor;
+        private int cornerRadius = 15;
+        private int strokeSize = 3;
+        private int borderOffset = 7;
+        private Color borderColor;
+        
+        public RoundedPanel(LayoutManager layout, int radius) {
+            super(layout);
+            cornerRadius = radius;
+        }
+        
+        public RoundedPanel(LayoutManager layout, int radius, int stroke, int offset, Color borderColor) {
+            super(layout);
+            cornerRadius = radius;
+            strokeSize = stroke;
+            borderOffset = offset;
+            this.borderColor = borderColor;
+        }
+        
+        public RoundedPanel(LayoutManager layout, int radius, Color bgColor) {
+            super(layout);
+            cornerRadius = radius;
+            backgroundColor = bgColor;
+        }
+        
+        public RoundedPanel(LayoutManager layout, int radius, Color bgColor, int stroke, int offset, Color borderColor) {
+            super(layout);
+            cornerRadius = radius;
+            backgroundColor = bgColor;
+            strokeSize = stroke;
+            borderOffset = offset;
+            this.borderColor = borderColor;
+        }
+        
+        public RoundedPanel(int radius) {
+            super();
+            cornerRadius = radius;
+        }
+        
+        public RoundedPanel(int radius, int stroke, int offset, Color borderColor) {
+            super();
+            cornerRadius = radius;
+            strokeSize = stroke;
+            borderOffset = offset;
+            this.borderColor = borderColor;
+        }
+        
+        public RoundedPanel(int radius, Color bgColor) {
+            super();
+            cornerRadius = radius;
+            backgroundColor = bgColor;
+            
+        }
+        
+        public RoundedPanel(int radius, Color bgColor, int stroke, int offset, Color borderColor) {
+            super();
+            cornerRadius = radius;
+            backgroundColor = bgColor;
+            strokeSize = stroke;
+            borderOffset = offset;
+            this.borderColor = borderColor;
+        }
+        
+        
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            Dimension arcs = new Dimension(cornerRadius, cornerRadius);
+            int width = getWidth();
+            int height = getHeight();
+            Graphics2D graphics = (Graphics2D) g;
+            graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            
+            // draws rounded panels with borders
+            if (backgroundColor != null) {
+                graphics.setColor(backgroundColor);
+            } else {
+                graphics.setColor(getBackground());
+            }
+            
+            graphics.fillRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height); // paint background
+            
+            if (borderColor != null) {
+                graphics.setColor(borderColor);
+            } else {
+                graphics.setColor(getForeground());
+            }
+            graphics.setStroke(new BasicStroke(strokeSize));
+            graphics.drawRoundRect(borderOffset, borderOffset, width-1 - 2*borderOffset, height-1 - 2*borderOffset,arcs.width, arcs.height); // paint border
+        }
+    }
 }

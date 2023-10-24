@@ -9,7 +9,14 @@ public class MainFrame extends JFrame {
         setResizable(false);
         setVisible(true);
         setBackground(new Color(0x333333));
-    }
+
+            }
+
+
+
+
+
+
 
     public static void main(String[] args) {
             Input inputFrame = new Input();

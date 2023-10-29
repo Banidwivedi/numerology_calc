@@ -319,7 +319,7 @@ public class InputFrame extends javax.swing.JFrame {
 
         getContentPane().add(background);
 
-        pack();
+        //pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void inputFieldsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputFieldsMouseClicked

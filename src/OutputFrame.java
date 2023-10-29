@@ -12,17 +12,20 @@ import javax.swing.JPanel;
  * @author nigga
  */
 public class OutputFrame extends javax.swing.JFrame {
-    private final Font titleFont = new Font("Bitstream Charter", Font.BOLD, 30);
+    private final Font titleFont = new Font("Bitstream Charter", Font.BOLD, 25);
     private final Font textFont = new Font("Bitstream Charter", Font.PLAIN, 15);
     private final Color backgroundWhite = new Color(0xebe9f7);
     private final Color textColor = new Color(0x100c22);
     private final int radius = 30;
     private final int strokeSize = 4;
     private final int borderOffset = 5;
-    private final ImageIcon zodiac;
-    private final String career;
-    private final String personality;
-    private final int luckyNumber;
+    private ImageIcon zodiac;
+    private ImageIcon planet;
+    private String rulingPlanet;
+    private String career;
+    private String personality;
+    private String future;
+    private int luckyNumber;
     
     /**
      * Creates new form OutputFrame
@@ -32,9 +35,20 @@ public class OutputFrame extends javax.swing.JFrame {
         Image zodiacImage = new ImageIcon(getClass().getResource("/res/zodiacs/" + numerology.getZodiacSign() + ".png"))
                 .getImage()
                 .getScaledInstance(150, 150, Image.SCALE_SMOOTH);
-        zodiac = new ImageIcon(zodiacImage);        
+        Image planetImage = new ImageIcon(getClass().getResource("/res/planets/" + numerology.getRulingPlanet() + ".png"))
+                .getImage()
+                .getScaledInstance(230, 140, Image.SCALE_SMOOTH);
+        zodiac = new ImageIcon(zodiacImage);
+        planet = new ImageIcon(planetImage);
         career = numerology.getCareer();
         personality = numerology.getPersonality();
+        future = numerology.getFuture();
+        rulingPlanet = numerology.getRulingPlanet();
+        System.out.println("Future: " + career + "\n"
+                + "Personality: " + personality + "\n"
+                + "Future: " + future + "\n"
+                + "Zodiac Sing: " + numerology.getZodiacSign() + "\n"
+                + "Ruling Planet:" + rulingPlanet);
         luckyNumber = numerology.getLuckyNumber();
         initComponents();
     }
@@ -54,11 +68,15 @@ public class OutputFrame extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         jPanel8 = new RoundedPanel(radius, backgroundWhite, strokeSize, borderOffset, textColor);
         jLabel2 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         jPanel9 = new RoundedPanel(radius, backgroundWhite, strokeSize, borderOffset, textColor);
-        jLabel5 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jPanel7 = new RoundedPanel(radius, backgroundWhite, strokeSize, borderOffset, textColor);
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new RoundedPanel(radius, backgroundWhite, strokeSize, borderOffset, textColor);
         jLabel6 = new javax.swing.JLabel();
@@ -80,20 +98,18 @@ public class OutputFrame extends javax.swing.JFrame {
         setTitle("AstroBro");
         setBackground(new Color(0x333333));
         setForeground(new Color(0x333333));
-        setMaximumSize(new java.awt.Dimension(720, 480));
         setMinimumSize(new java.awt.Dimension(720, 480));
-        setPreferredSize(new java.awt.Dimension(720, 480));
-        setSize(new java.awt.Dimension(720, 480));
+        setSize(new java.awt.Dimension(720, 600));
         getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
 
-        jPanel10.setMaximumSize(new java.awt.Dimension(720, 480));
+        jPanel10.setMaximumSize(new java.awt.Dimension(720, 580));
         jPanel10.setOpaque(false);
-        jPanel10.setPreferredSize(new java.awt.Dimension(720, 480));
+        jPanel10.setPreferredSize(new java.awt.Dimension(720, 580));
 
-        info.setMaximumSize(new java.awt.Dimension(700, 460));
+        info.setMaximumSize(new java.awt.Dimension(700, 520));
         info.setMinimumSize(new java.awt.Dimension(700, 460));
         info.setOpaque(false);
-        info.setPreferredSize(new java.awt.Dimension(700, 460));
+        info.setPreferredSize(new java.awt.Dimension(700, 520));
         info.setLayout(new java.awt.GridLayout(0, 2, 10, 0));
 
         jPanel1.setOpaque(false);
@@ -110,47 +126,72 @@ public class OutputFrame extends javax.swing.JFrame {
         jLabel2.setMinimumSize(new java.awt.Dimension(150, 150));
         jLabel2.setPreferredSize(new java.awt.Dimension(150, 150));
 
+        jLabel9.setFont(titleFont);
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setText("<html><center>Zodiac Sign<center><html>");
+
+        jLabel10.setFont(textFont);
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("<html><center>(english calendar)<center><html>");
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+            .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8))
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addComponent(jLabel10)
+            .addComponent(jLabel9)
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(26, 26, 26))
         );
 
         jPanel6.add(jPanel8);
 
         jPanel9.setOpaque(false);
 
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setMaximumSize(new java.awt.Dimension(150, 150));
-        jLabel5.setMinimumSize(new java.awt.Dimension(150, 150));
-        jLabel5.setPreferredSize(new java.awt.Dimension(150, 150));
+        jLabel12.setFont(titleFont);
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setText("<html><center>Lucky Number<center><html>");
+        jLabel12.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        jLabel4.setFont(new Font("Helvetica", Font.BOLD, 100));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText(Integer.toString(luckyNumber)
+        );
+        jLabel4.setMaximumSize(new java.awt.Dimension(150, 150));
+        jLabel4.setMinimumSize(new java.awt.Dimension(150, 150));
+        jLabel4.setPreferredSize(new java.awt.Dimension(150, 150));
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8))
+            .addComponent(jLabel12)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(8, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(15, 15, 15)
+                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 38, Short.MAX_VALUE))
         );
 
         jPanel6.add(jPanel9);
@@ -161,34 +202,37 @@ public class OutputFrame extends javax.swing.JFrame {
 
         jLabel3.setFont(titleFont);
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("<html><strong>Lucky Number<strong><html>");
+        jLabel3.setText("<html><strong>Ruling Planet<strong><html>");
 
-        jLabel4.setFont(new Font("Helvetica", Font.BOLD, 100));
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText(Integer.toString(luckyNumber)
-        );
-        jLabel4.setMaximumSize(new java.awt.Dimension(150, 150));
-        jLabel4.setMinimumSize(new java.awt.Dimension(150, 150));
-        jLabel4.setPreferredSize(new java.awt.Dimension(150, 150));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setIcon(planet);
+
+        jLabel11.setFont(titleFont);
+        jLabel11.setForeground(textColor);
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText(rulingPlanet);
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
+            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(83, Short.MAX_VALUE)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(100, 100, 100))
+                .addContainerGap()
+                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
+                .addContainerGap()
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                .addGap(14, 14, 14))
         );
 
         jPanel1.add(jPanel7);
@@ -239,8 +283,8 @@ public class OutputFrame extends javax.swing.JFrame {
                 .addGap(10, 10, 10)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         jPanel2.add(jPanel3);
@@ -263,7 +307,7 @@ public class OutputFrame extends javax.swing.JFrame {
         jTextArea2.setForeground(textColor);
         jTextArea2.setLineWrap(true);
         jTextArea2.setRows(5);
-        jTextArea2.setText(career);
+        jTextArea2.setText(personality);
         jTextArea2.setWrapStyleWord(true);
         jTextArea2.setBorder(null);
         jTextArea2.setOpaque(false);
@@ -286,8 +330,8 @@ public class OutputFrame extends javax.swing.JFrame {
                 .addGap(10, 10, 10)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         jPanel2.add(jPanel4);
@@ -310,7 +354,7 @@ public class OutputFrame extends javax.swing.JFrame {
         jTextArea3.setForeground(textColor);
         jTextArea3.setLineWrap(true);
         jTextArea3.setRows(5);
-        jTextArea3.setText(career);
+        jTextArea3.setText(future);
         jTextArea3.setWrapStyleWord(true);
         jTextArea3.setBorder(null);
         jTextArea3.setOpaque(false);
@@ -333,8 +377,8 @@ public class OutputFrame extends javax.swing.JFrame {
                 .addGap(10, 10, 10)
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         jPanel2.add(jPanel5);
@@ -365,14 +409,15 @@ public class OutputFrame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(321, 321, 321))
+                .addGap(319, 319, 319))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
-                .addComponent(info, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(info, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         getContentPane().add(jPanel10);
@@ -442,6 +487,9 @@ public class OutputFrame extends javax.swing.JFrame {
     private javax.swing.JPanel info;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -449,6 +497,7 @@ public class OutputFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;

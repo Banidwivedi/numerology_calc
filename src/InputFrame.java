@@ -1,5 +1,4 @@
-
-import java.awt.BasicStroke;
+ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -7,6 +6,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.LayoutManager;
 import java.awt.RenderingHints;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JPanel;
 
 /*
@@ -19,15 +21,17 @@ import javax.swing.JPanel;
  */
 public class InputFrame extends javax.swing.JFrame {
     private final String defFirstName = "First Name";
-    private final String defSecondName = "Last Name";
+    private final String defLastName = "Last Name";
     private final String defDateOfBirth = "DD/MM/YYYY";
     private final String defPlaceOfBirth = "Place of Birth";
-    private final Font inputFieldFont = new Font("Bitstream Charter", Font.PLAIN, 18);
-    private final Color textColor = new Color(0x100c22);
-    private final Color backgroundWhite = new Color(0xebe9f7);
-    private final int radius = 30;
-    private final int strokeSize = 4;
-    private final int borderOffset = 5;
+    private Font inputFieldFont = new Font("Bitstream Charter", Font.PLAIN, 18);
+    private Font errorFont = new Font("Bitstream Charter", Font.PLAIN, 15);
+    private Color textColor = new Color(0x100c22);
+    private Color backgroundWhite = new Color(0xebe9f7);
+    private int radius = 30;
+    private int strokeSize = 4;
+    private int borderOffset = 5;
+    private String invalidInputMessage = "";
     
 
     /**
@@ -37,6 +41,20 @@ public class InputFrame extends javax.swing.JFrame {
         setVisible(true);
         initComponents();
     }
+
+    public static boolean isDateOfBirthValid(String dobString) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        dateFormat.setLenient(false); // Disallow lenient parsing (e.g., Feb 31)
+
+        try {
+            Date dob = dateFormat.parse(dobString);
+            // Check if the parsed date is equal to the input string, ensuring the format is valid
+            return dobString.equals(dateFormat.format(dob));
+        } catch (ParseException e) {
+            return false; // Parsing failed, invalid date format
+        }
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -49,7 +67,7 @@ public class InputFrame extends javax.swing.JFrame {
 
         rbGroupGender = new javax.swing.ButtonGroup();
         inputFields = new RoundedPanel(radius, backgroundWhite, strokeSize, borderOffset, textColor);
-        tfSecondName = new javax.swing.JTextField();
+        tfLastName = new javax.swing.JTextField();
         tfFirstName = new javax.swing.JTextField();
         tfDateOfBirth = new javax.swing.JTextField();
         tfPlaceOfBirth = new javax.swing.JTextField();
@@ -62,6 +80,7 @@ public class InputFrame extends javax.swing.JFrame {
         btnClear = new javax.swing.JButton();
         rbMale = new javax.swing.JRadioButton();
         jRadioButton1 = new javax.swing.JRadioButton();
+        errorLabel = new javax.swing.JLabel();
         background = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -71,9 +90,8 @@ public class InputFrame extends javax.swing.JFrame {
         setBounds(new java.awt.Rectangle(0, 0, 640, 480));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMinimumSize(new java.awt.Dimension(720, 480));
-        setPreferredSize(new java.awt.Dimension(720, 480));
         setResizable(false);
-        setSize(new java.awt.Dimension(720, 480));
+        setSize(new java.awt.Dimension(720, 600));
         getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
 
         inputFields.setBackground(backgroundWhite);
@@ -88,20 +106,20 @@ public class InputFrame extends javax.swing.JFrame {
             }
         });
 
-        tfSecondName.setBackground(backgroundWhite);
-        tfSecondName.setFont(inputFieldFont);
-        tfSecondName.setForeground(new Color(0x100c22));
-        tfSecondName.setText("Last Name");
-        tfSecondName.setBorder(null);
-        tfSecondName.setCaretColor(new java.awt.Color(204, 204, 204));
-        tfSecondName.addMouseListener(new java.awt.event.MouseAdapter() {
+        tfLastName.setBackground(backgroundWhite);
+        tfLastName.setFont(inputFieldFont);
+        tfLastName.setForeground(new Color(0x100c22));
+        tfLastName.setText("Last Name");
+        tfLastName.setBorder(null);
+        tfLastName.setCaretColor(new java.awt.Color(204, 204, 204));
+        tfLastName.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tfSecondNameMouseClicked(evt);
+                tfLastNameMouseClicked(evt);
             }
         });
-        tfSecondName.addActionListener(new java.awt.event.ActionListener() {
+        tfLastName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfSecondNameActionPerformed(evt);
+                tfLastNameActionPerformed(evt);
             }
         });
 
@@ -163,7 +181,7 @@ public class InputFrame extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Abyssinica SIL", 0, 24)); // NOI18N
         jLabel2.setForeground(new Color(0x100c22));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/planet.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/cute_planet.png"))); // NOI18N
         jLabel2.setText("<html>\n<center>\n<strong>ASTROBRO<strong><br>\n<center>\n<html>");
 
         btnOk.setBackground(new Color(0x726db6));
@@ -207,6 +225,10 @@ public class InputFrame extends javax.swing.JFrame {
         jRadioButton1.setText("Female");
         jRadioButton1.setContentAreaFilled(false);
 
+        errorLabel.setFont(errorFont);
+        errorLabel.setForeground(new java.awt.Color(255, 0, 0));
+        errorLabel.setText(invalidInputMessage);
+
         javax.swing.GroupLayout inputFieldsLayout = new javax.swing.GroupLayout(inputFields);
         inputFields.setLayout(inputFieldsLayout);
         inputFieldsLayout.setHorizontalGroup(
@@ -215,13 +237,13 @@ public class InputFrame extends javax.swing.JFrame {
                 .addGroup(inputFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(inputFieldsLayout.createSequentialGroup()
                         .addGap(72, 72, 72)
-                        .addGroup(inputFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(inputFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tfPlaceOfBirth, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tfFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tfDateOfBirth, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfSecondName, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(inputFieldsLayout.createSequentialGroup()
@@ -234,11 +256,12 @@ public class InputFrame extends javax.swing.JFrame {
                                         .addComponent(jRadioButton1))
                                     .addGroup(inputFieldsLayout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                        .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(errorLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(inputFieldsLayout.createSequentialGroup()
                         .addGap(38, 38, 38)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
         inputFieldsLayout.setVerticalGroup(
             inputFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -250,7 +273,7 @@ public class InputFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
-                .addComponent(tfSecondName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 7, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -269,7 +292,9 @@ public class InputFrame extends javax.swing.JFrame {
                 .addGroup(inputFieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnClear)
                     .addComponent(btnOk))
-                .addGap(80, 80, 80))
+                .addGap(30, 30, 30)
+                .addComponent(errorLabel)
+                .addContainerGap())
         );
 
         getContentPane().add(inputFields);
@@ -305,7 +330,7 @@ public class InputFrame extends javax.swing.JFrame {
         // TODO add your handling code here
         if(evt.getSource() == btnClear) {
             tfFirstName.setText(defFirstName);
-            tfSecondName.setText(defSecondName);
+            tfLastName.setText(defLastName);
             tfDateOfBirth.setText(defDateOfBirth);
             tfPlaceOfBirth.setText(defPlaceOfBirth);
             rbGroupGender.clearSelection();
@@ -322,11 +347,11 @@ public class InputFrame extends javax.swing.JFrame {
             if(tfPlaceOfBirth.getText().equals(defPlaceOfBirth)){
                 tfPlaceOfBirth.setText("");
             }
-            if (tfFirstName.getText().equals("")) {
+            if (tfFirstName.getText().isEmpty()) {
                 tfFirstName.setText(defFirstName);
-            } if (tfSecondName.getText().equals("")) {
-                tfSecondName.setText(defSecondName);
-            } if (tfDateOfBirth.getText().equals("")) {
+            } if (tfLastName.getText().isEmpty()) {
+                tfLastName.setText(defLastName);
+            } if (tfDateOfBirth.getText().isEmpty()) {
                 tfDateOfBirth.setText(defDateOfBirth);
             }
         }
@@ -338,11 +363,11 @@ public class InputFrame extends javax.swing.JFrame {
             if(tfDateOfBirth.getText().equals(defDateOfBirth)){
                 tfDateOfBirth.setText("");
             }
-            if (tfFirstName.getText().equals("")) {
+            if (tfFirstName.getText().isEmpty()) {
                 tfFirstName.setText(defFirstName);
-            } if (tfSecondName.getText().equals("")) {
-                tfSecondName.setText(defSecondName);
-            } if (tfPlaceOfBirth.getText().equals("")) {
+            } if (tfLastName.getText().isEmpty()) {
+                tfLastName.setText(defLastName);
+            } if (tfPlaceOfBirth.getText().isEmpty()) {
                 tfPlaceOfBirth.setText(defPlaceOfBirth);
             }
         }
@@ -353,43 +378,66 @@ public class InputFrame extends javax.swing.JFrame {
         if (evt.getSource() == tfFirstName) {
             if(tfFirstName.getText().equals(defFirstName)){
                 tfFirstName.setText("");
-            } if (tfSecondName.getText().equals("")) {
-                tfSecondName.setText(defSecondName);
-            } if (tfDateOfBirth.getText().equals("")) {
+            } if (tfLastName.getText().isEmpty()) {
+                tfLastName.setText(defLastName);
+            } if (tfDateOfBirth.getText().isEmpty()) {
                 tfDateOfBirth.setText(defDateOfBirth);
-            } if (tfPlaceOfBirth.getText().equals("")) {
+            } if (tfPlaceOfBirth.getText().isEmpty()) {
                 tfPlaceOfBirth.setText(defPlaceOfBirth);
             }
         }
     }//GEN-LAST:event_tfFirstNameMouseClicked
 
-    private void tfSecondNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfSecondNameActionPerformed
+    private void tfLastNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfLastNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tfSecondNameActionPerformed
+    }//GEN-LAST:event_tfLastNameActionPerformed
 
-    private void tfSecondNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfSecondNameMouseClicked
+    private void tfLastNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfLastNameMouseClicked
         // TODO add your handling code here:
-        if (evt.getSource() == tfSecondName) {
-            if(tfSecondName.getText().equals(defSecondName)){
-                tfSecondName.setText("");
+        if (evt.getSource() == tfLastName) {
+            if(tfLastName.getText().equals(defLastName)){
+                tfLastName.setText("");
             }
-            if (tfFirstName.getText().equals("")) {
+            if (tfFirstName.getText().isEmpty()) {
                 tfFirstName.setText(defFirstName);
-            } if (tfDateOfBirth.getText().equals("")) {
+            } if (tfDateOfBirth.getText().isEmpty()) {
                 tfDateOfBirth.setText(defDateOfBirth);
-            } if (tfPlaceOfBirth.getText().equals("")) {
+            } if (tfPlaceOfBirth.getText().isEmpty()) {
                 tfPlaceOfBirth.setText(defPlaceOfBirth);
             }
         }
-    }//GEN-LAST:event_tfSecondNameMouseClicked
+    }//GEN-LAST:event_tfLastNameMouseClicked
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
         if(evt.getSource() == btnOk) {
+            String firstName = tfFirstName.getText();
+            String lastName = tfLastName.getText();
+            String placeOfBirth = tfPlaceOfBirth.getText();
             String dateOfBirth = tfDateOfBirth.getText();
-            Birthday bd = new Birthday(dateOfBirth);
-            Numerology numerology = new Numerology(bd);
-            dispose();
-            new OutputFrame(numerology);
+            
+            if (firstName.isEmpty() || firstName.equals(defFirstName)){
+                errorLabel.setText("Enter First Name");
+                return;
+            } if (lastName.isEmpty() || lastName.equals(defLastName)){
+                errorLabel.setText("Enter Last Name");
+                return;
+            } if (dateOfBirth.isEmpty() || dateOfBirth.equals(defDateOfBirth)) {
+                errorLabel.setText("Enter DateOfBirth");
+            } if (placeOfBirth.isEmpty() || placeOfBirth.equals(defPlaceOfBirth)){
+                errorLabel.setText("Enter Place Of Birth");
+                return;
+            } if (rbGroupGender.getSelection() == null) {
+                errorLabel.setText("Select Gender");
+                return;
+            } 
+            
+            if (isDateOfBirthValid(dateOfBirth)) {
+                Numerology numerology = new Numerology(new Birthday(dateOfBirth));
+                dispose();
+                new OutputFrame(numerology);
+            } else {
+                errorLabel.setText("Invalid Date Of Birth");
+            }
         }
     }//GEN-LAST:event_btnOkActionPerformed
 
@@ -433,6 +481,7 @@ public class InputFrame extends javax.swing.JFrame {
     private javax.swing.JPanel background;
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnOk;
+    private javax.swing.JLabel errorLabel;
     private javax.swing.JPanel inputFields;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -445,8 +494,8 @@ public class InputFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButton rbMale;
     private javax.swing.JTextField tfDateOfBirth;
     private javax.swing.JTextField tfFirstName;
+    private javax.swing.JTextField tfLastName;
     private javax.swing.JTextField tfPlaceOfBirth;
-    private javax.swing.JTextField tfSecondName;
     // End of variables declaration//GEN-END:variables
     class RoundedPanel extends JPanel {
         private Color backgroundColor;
